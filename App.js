@@ -7,24 +7,28 @@ import GameOverScreen from './Screens/GameOverScreen';
 
 export default function App() {
   const [userSelectedNumber, setUserSelectedNumber] = useState(null); // Renamed state
-  const [gameIsOver,setGameIsOver]=useState(false)
+  const [gameIsOver,setGameIsOver]=useState(true)
+  const [guessLogs,setGuessLogs]=useState()
 
-  let screen = <GameStartScreen  onNumberSelected={setUserSelectedNumber} />
+  let screen = <GameStartScreen setGameIsOver={setGameIsOver}  onNumberSelected={setUserSelectedNumber} />
 
 
   if(userSelectedNumber){
     screen = <GameScreen onGameOver={GameOverFn} userSelectedNumber={userSelectedNumber}/>
   }
-  function GameOverFn(){
+  function GameOverFn(log){
     console.log('gameover screen')
     setGameIsOver(true)
+    setGuessLogs(log)
   }
   if(userSelectedNumber && gameIsOver){
-    screen = <GameOverScreen />
+    screen = <GameOverScreen setUserSelectedNumber={setUserSelectedNumber} logs={guessLogs} setGameIsOver={setGameIsOver}  selectedNumber={userSelectedNumber} />
   }
   useEffect(()=>{
     console.log('gameover screen useeffect')
   },[GameOverFn])
+
+  
   return (
     <View style={styles.container}>
     {screen}

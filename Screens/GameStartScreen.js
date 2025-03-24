@@ -3,7 +3,7 @@ import PrimaryButton from '../components/PrimaryButtons';
 import Title from '../components/Tilte';
 import { useState } from 'react';
 
-function GameStartScreen({ onNumberSelected }) { // Renamed props
+function GameStartScreen({ onNumberSelected,setGameIsOver }) { // Renamed props
 
   const [enteredValue, setEnteredValue] = useState(''); // Renamed state
 
@@ -24,6 +24,7 @@ function GameStartScreen({ onNumberSelected }) { // Renamed props
     }
 
     onNumberSelected(chosenNumber); // Updated prop usage
+    setGameIsOver(false)
   }
 
   function inputValueChangedHandler(enteredText) { // Renamed function

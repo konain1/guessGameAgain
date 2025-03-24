@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   buttonText: { //renamed customText
     textAlign: 'center',
     fontSize: 24,
+    padding:10
   },
   pressedButton: { //renamed touchable
     backgroundColor: '#346087',
