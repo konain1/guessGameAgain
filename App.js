@@ -10,6 +10,7 @@ export default function App() {
   const [gameIsOver,setGameIsOver]=useState(true)
   const [guessLogs,setGuessLogs]=useState()
 
+
   let screen = <GameStartScreen setGameIsOver={setGameIsOver}  onNumberSelected={setUserSelectedNumber} />
 
 
@@ -28,6 +29,7 @@ export default function App() {
     console.log('gameover screen useeffect')
   },[GameOverFn])
 
+
   
   return (
     <View style={styles.container}>
@@ -39,8 +41,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#dadada',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width:'100%'
   },
 });

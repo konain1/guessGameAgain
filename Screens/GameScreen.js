@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { View,Text, StyleSheet, Alert, FlatList } from "react-native"
+import { View,Text, StyleSheet, Alert, FlatList,useWindowDimensions } from "react-native"
 import PrimaryButton from "../components/PrimaryButtons"
 import AntDesign from '@expo/vector-icons/AntDesign';
 
@@ -24,6 +24,7 @@ function GameScreen({userSelectedNumber,onGameOver}){
     const initialRandomNumber = randomNumberFn(1,100,userSelectedNumber)
     const [currentGuessNumber,setCurrentGuessNumber]=useState(initialRandomNumber)
     const [currentLogs,setCurrentLogs]=useState([])
+    const {width} = useWindowDimensions()
 
     
 
@@ -61,15 +62,20 @@ function GameScreen({userSelectedNumber,onGameOver}){
             maxBoundary = 100
         }
     },[currentGuessNumber])
+    const btnWidth = width < 400 ? '80%' : '50%'
+    const marginView = width < 400 ? 100 : 10
+    const textFontSize = width < 400 ?24 : 32
+
+
 
         return(
             <>
             <View style={styles.container}>
-            <View style={styles.guessView}>
+            <View style={[styles.guessView,{margin:marginView}]}>
 
-                <Text style={styles.text}>Guessed Number {currentGuessNumber} </Text>
+                <Text style={[styles.text,{fontSize:textFontSize}]}>Guessed Number {currentGuessNumber} </Text>
             </View>
-                <View style={styles.btnContainer}>
+                <View style={[styles.btnContainer,{width:btnWidth}]}>
 
                 <View style={styles.iconsText}>
                     <PrimaryButton onPress={NextGuessNumber.bind(this,'greater')} > <AntDesign name="plus" size={24} color="black" /> </PrimaryButton>
@@ -79,7 +85,7 @@ function GameScreen({userSelectedNumber,onGameOver}){
                 </View>
                 </View>
                 <View style={styles.logView}>
-                    <FlatList data={currentLogs}      renderItem={({item}) => <Text >{item}</Text>}
+                    <FlatList data={currentLogs}  style={styles.flatlist}    renderItem={({item}) => <Text style={styles.flatlistText} >{item} </Text>}
                          keyExtractor={item => item} />
                 </View>
             </View>
@@ -100,18 +106,15 @@ const styles = StyleSheet.create({
     },
     guessView:{
         padding:10,
-        margin:100,
-        borderWidth:1,
         width:'100%',
         alignItems:'center'
 
     },
     text:{
-        fontSize:30,
+        fontSize:24,
         color:'white'
     },
     btnContainer:{
-        width:'100%',
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row'
@@ -120,10 +123,26 @@ const styles = StyleSheet.create({
         flex:1
     },
     logView:{
-        width:'100%',
-        backgroundColor:'lightgreen',
-        borderWidth:1,
-        marginVertical:100
+        width:'80%',
+        overflow:'hidden',
+        justifyContent:'space-between',
+        alignItems:'center',
+        borderColor:'black',
+        marginTop:10,
+        overflow:'hidden',
+        height:100
+
+    },
+    flatlist:{
+        width:'70%',
+        textAlign:'center',
+        overflow:'hidden'
+    },
+    flatlistText:{
+        textAlign:'center',
+        backgroundColor:'orange',
+        borderRadius:12,
+        marginVertical:5
     }
 
 })

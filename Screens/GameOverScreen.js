@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import PrimaryButton from '../components/PrimaryButtons'
 import { LinearGradient } from 'expo-linear-gradient'
+import Title from '../components/Tilte'
 
 function GameOverScreen ({
   logs,
@@ -34,13 +35,16 @@ function GameOverScreen ({
 
             style={styles.image}
           >
-            <Text>Inside</Text>
 
-            <Text>GameOver!!!</Text>
+            <Title> <Text>GameOver!!!</Text></Title>
+           
             <View>
-              <Text>
+            <Title>
+            <Text style={styles.roundsView}>
                 you have taken {logs} rounds to guess {selectedNumber}{' '}
               </Text>
+            </Title>
+              
             </View>
             <PrimaryButton onPress={gameStartHandler}>
               <Text>NewGameStart</Text>
@@ -57,7 +61,10 @@ export default GameOverScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    justifyContent:'center',
+    alignItems:'center'
+
   },
   background: {
     flex: 1,
@@ -73,5 +80,9 @@ const styles = StyleSheet.create({
   },
   backgroundImg:{
     opacity:0.15
+  },
+  roundsView:{
+    alignItems:'center',
+    justifyContent:'center'
   }
 })
